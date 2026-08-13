@@ -1,0 +1,10 @@
+[workspace]
+resolver = "2"
+members = [
+    "arona_memory",
+    "arona_cognition",
+    "arona_guardian",
+    "arona_permissions",
+    "arona_adaptive",
+    "arona_orchestrator",
+]

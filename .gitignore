@@ -1,0 +1,26 @@
+# Rust build artifacts
+target/
+**/target/
+
+# OS / disk images
+*.img
+
+# AI models
+models/
+*.gguf
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

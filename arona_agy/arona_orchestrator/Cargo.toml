@@ -1,0 +1,49 @@
+[package]
+name = "arona_orchestrator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+arona_memory = { path = "../arona_memory" }
+arona_cognition = { path = "../arona_cognition", default-features = false }
+arona_guardian = { path = "../arona_guardian" }
+arona_permissions = { path = "../arona_permissions" }
+arona_adaptive = { path = "../arona_adaptive" }
+thiserror = "1"
+anyhow = "1"
+uuid = { version = "1", features = ["v4", "serde"] }
+
+[dev-dependencies]
+arona_memory = { path = "../arona_memory", features = ["test-utils"] }
+
+[features]
+candle = ["arona_cognition/candle"]
+cuda = ["arona_cognition/cuda"]
+
+[[example]]
+name = "propose_guardian_rule"
+required-features = ["candle"]
+
+[[example]]
+name = "propose_permission_template"
+required-features = ["candle"]
+
+[[example]]
+name = "handle_turn"
+required-features = ["candle"]
+
+[[example]]
+name = "arbitrate_conflict"
+required-features = ["candle"]
+
+[[example]]
+name = "trust_buildup"
+required-features = ["candle"]
+
+[[example]]
+name = "guardian_blocks"
+required-features = ["candle"]
+
+[[example]]
+name = "resolve_conflict"
+required-features = ["candle"]
