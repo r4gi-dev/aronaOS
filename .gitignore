@@ -24,13 +24,3 @@ models/
 # OS files
 .DS_Store
 Thumbs.db
-
-# llama.cpp source repository
-llm/llama.cpp/
-
-# Large local LLM model files
-llm/*.gguf
-llm/**/*.gguf
-
-# Local CUDA test binaries
-llm/*.exe
