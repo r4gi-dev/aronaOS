@@ -1,0 +1,31 @@
+{
+  "category": "coding",
+  "evaluation_axes": ["correctness", "code_quality"],
+  "prompts": [
+    {
+      "id": "code_01",
+      "tag": "rust_dev_context",
+      "prompt": "Rustで、整数のスライス(&[i32])を受け取り、最大値と最小値を1回のイテレーションで同時に求める関数を書いてください。空のスライスが渡された場合はNoneを返すようにしてください。"
+    },
+    {
+      "id": "code_02",
+      "tag": "rust_dev_context_kernel",
+      "prompt": "no_std環境(OSカーネル開発のような、ヒープアロケーションを前提にできない場面)で使う、固定長のリングバッファ(FIFOキュー)をRustで実装してください。push・popの2つの操作をサポートし、バッファが満杯・空の場合はそれぞれ適切にエラーまたはNoneを返すようにしてください。"
+    },
+    {
+      "id": "code_03",
+      "tag": "rust_dev_context_debug",
+      "prompt": "以下のRustコードにはバグがあります。何が問題か指摘し、修正したコードを示してください。\n\n```rust\nfn get_last_element(v: &Vec<i32>) -> i32 {\n    v[v.len()]\n}\n```"
+    },
+    {
+      "id": "code_04",
+      "tag": "general_algorithm",
+      "prompt": "二分探索木(BST)から、値がk以上m以下の範囲にある要素をすべて出力する関数を実装してください(言語は問いません)。"
+    },
+    {
+      "id": "code_05",
+      "tag": "general_algorithm",
+      "prompt": "与えられた文字列の中で最も長い回文部分文字列を見つけるアルゴリズムを実装してください(言語は問いません)。計算量についても簡単に言及してください。"
+    }
+  ]
+}

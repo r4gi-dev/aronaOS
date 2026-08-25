@@ -231,6 +231,48 @@ function Resolve-BenchmarkModel {
 }
 
 # ------------------------------------------------------------
+# Helper: Build a human-readable test label from n_prompt / n_gen
+# ------------------------------------------------------------
+#
+# llama-bench の -o json 出力には "test" というフィールドは含まれない
+# (Markdown表出力(-o md)にのみ現れる文字列)。そのため、JSON出力に
+# 実際に含まれる n_prompt / n_gen の値から "pp512" / "tg128" のような
+# ラベルをこちら側で組み立てる。両方が0以外の場合(-pgオプション使用時)は
+# "pp<n_prompt>+tg<n_gen>" とする。
+
+function Get-TestLabel {
+
+    param(
+        [Parameter(Mandatory = $true)]
+        $Result
+    )
+
+    $nPrompt = 0
+    $nGen    = 0
+
+    if ($null -ne $Result.n_prompt) {
+        $nPrompt = [int]$Result.n_prompt
+    }
+
+    if ($null -ne $Result.n_gen) {
+        $nGen = [int]$Result.n_gen
+    }
+
+    if ($nPrompt -gt 0 -and $nGen -gt 0) {
+        return "pp{0}+tg{1}" -f $nPrompt, $nGen
+    }
+    elseif ($nPrompt -gt 0) {
+        return "pp{0}" -f $nPrompt
+    }
+    elseif ($nGen -gt 0) {
+        return "tg{0}" -f $nGen
+    }
+    else {
+        return "unknown"
+    }
+}
+
+# ------------------------------------------------------------
 # Benchmark header
 # ------------------------------------------------------------
 
@@ -815,6 +857,16 @@ foreach ($experiment in $config.experiments) {
 
         # ----------------------------------------------------
         # Parse JSON
+        #
+        # 修正点(重要):
+        # llama-bench -o json の実際の出力には、以前コードが参照していた
+        # backend / test / tps / stddev / ngl というキーは存在しない。
+        # 実際に存在するキーは以下の通り(20260825_084832の実測JSONで確認済み):
+        #   - backends        (末尾に s が付く。例: "CUDA")
+        #   - n_gpu_layers     (ngl ではない)
+        #   - n_prompt / n_gen (test ラベルはここから自前で組み立てる)
+        #   - avg_ts           (tps ではない。トークン/秒の平均)
+        #   - stddev_ts        (stddev ではない。標準偏差)
         # ----------------------------------------------------
 
         try {
@@ -831,17 +883,26 @@ foreach ($experiment in $config.experiments) {
 
             foreach ($result in @($benchData)) {
 
-                $backend = $result.backend
+                # "backend" ではなく "backends" が正しいキー名
+                $backend = $result.backends
 
+                # "ngl" ではなく "n_gpu_layers" が正しいキー名
                 $resultNgl = $ngl
 
-                if ($null -ne $result.ngl) {
-                    $resultNgl = $result.ngl
+                if ($null -ne $result.n_gpu_layers) {
+                    $resultNgl = $result.n_gpu_layers
                 }
 
-                $tokensPerSec = $result.tps
+                # "tps" ではなく "avg_ts" が正しいキー名(平均トークン/秒)
+                $tokensPerSec = $result.avg_ts
 
-                $stdDev = $result.stddev
+                # "stddev" ではなく "stddev_ts" が正しいキー名
+                $stdDev = $result.stddev_ts
+
+                # "test" というキーはJSON出力に存在しないため、
+                # n_prompt / n_gen から "pp512" / "tg128" のような
+                # ラベルをこちらで組み立てる
+                $testLabel = Get-TestLabel -Result $result
 
                 $allResults += [PSCustomObject]@{
                     Timestamp      = (Get-Date).ToString("o")
@@ -855,7 +916,7 @@ foreach ($experiment in $config.experiments) {
                     PromptTokens   = $promptTokens
                     GenerationTokens = $generationTokens
                     Runs           = $runs
-                    Test           = $result.test
+                    Test           = $testLabel
                     TokensPerSec   = $tokensPerSec
                     StdDev         = $stdDev
                 }
