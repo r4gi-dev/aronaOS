@@ -1,0 +1,27 @@
+{
+  "llama_cpp": "C:\\dev\\llm\\llama.cpp",
+
+  "models": [
+    {
+      "id": "qwen3-30b-a3b-q4km",
+      "name": "Qwen3-30B-A3B-Q4_K_M",
+      "path": "C:\\dev\\llm\\Qwen3-30B-A3B-Q4_K_M.gguf",
+      "parameters_b": 30.53
+    }
+  ],
+
+  "bench": {
+    "prompt_tokens": 512,
+    "generation_tokens": 128,
+    "runs": 3
+  },
+
+  "experiments": [
+    {
+      "id": "baseline",
+      "description": "Q4_K_M with maximum GPU offload",
+      "model": "qwen3-30b-a3b-q4km",
+      "gpu_layers": [99]
+    }
+  ]
+}

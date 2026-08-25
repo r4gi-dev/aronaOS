@@ -3,7 +3,8 @@
 //! no_std環境で動く最小限のカーネル。起動・シリアル出力・割り込み処理・
 //! メモリ管理・プリエンプティブスケジューラに加え、時計(RTC)・乱数
 //! (RDRAND)という基礎土台の上に、Guardian・権限テンプレート・信頼モデルの
-//! カーネル移植版(試験実装)が動いている。
+//! カーネル移植版(試験実装)、FAT32ファイルシステム(フォーマット・
+//! ファイル読み書き)が動いている。
 
 #![no_std]
 #![no_main]
@@ -180,12 +181,72 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     }
 
     // --- FAT32フォーマット ---
-    match fat32::format::format() {
+    //
+    // 数千回のブロッキングATAセクタ書き込みを伴う長時間処理のため、
+    // タイマー割り込みによるタスク切り替えが処理の途中に何度も割り込むと、
+    // (原因はまだ特定できていないが)ダブルフォルトを引き起こすことを確認した。
+    // ディスクI/O中は割り込みを止めるのが定石でもあるため、
+    // `without_interrupts`でこの区間全体を保護する。
+    let format_result = x86_64::instructions::interrupts::without_interrupts(fat32::format::format);
+    match format_result {
         Ok(()) => {
             serial_println!("FAT32 filesystem initialized on data disk.");
         }
         Err(e) => {
             serial_println!("FAT32 format failed: {}", e);
+        }
+    }
+
+    // --- FAT32 ファイル書き込み・読み込みの動作確認 ---
+    // ATAセクタI/Oの確認と同じパターン: 書いたものが正しく読み返せるかを検証する。
+    // こちらも同じ理由でwithout_interruptsで保護する。
+    let test_file_name = "HELLO.TXT";
+    let test_file_content = b"AronaOS FAT32 test: r4gi-san, konnichiwa.";
+
+    let write_result =
+        x86_64::instructions::interrupts::without_interrupts(|| fat32::dir::write_file(test_file_name, test_file_content));
+
+    match write_result {
+        Ok(()) => {
+            serial_println!(
+                "FAT32: wrote file '{}' ({} bytes).",
+                test_file_name,
+                test_file_content.len()
+            );
+
+            let read_result =
+                x86_64::instructions::interrupts::without_interrupts(|| fat32::dir::read_file(test_file_name));
+
+            match read_result {
+                Ok(read_back) => {
+                    if read_back == test_file_content {
+                        serial_println!(
+                            "FAT32: read back matches what was written. File I/O is working."
+                        );
+                    } else {
+                        serial_println!("FAT32: read back MISMATCH. Something is wrong.");
+                    }
+                }
+                Err(e) => {
+                    serial_println!("FAT32: read_file failed: {}", e);
+                }
+            }
+        }
+        Err(e) => {
+            serial_println!("FAT32: write_file failed: {}", e);
+        }
+    }
+
+    // 存在しないファイルを読もうとした場合、エラーとして扱われることも確認しておく
+    // (「黙って空データを返す」ような失敗の握りつぶしを避ける設計方針の確認)
+    let missing_result =
+        x86_64::instructions::interrupts::without_interrupts(|| fat32::dir::read_file("NOTFOUND.TXT"));
+    match missing_result {
+        Ok(_) => {
+            serial_println!("FAT32: unexpectedly found NOTFOUND.TXT (this should not happen)");
+        }
+        Err(e) => {
+            serial_println!("FAT32: correctly reported missing file: {}", e);
         }
     }
 

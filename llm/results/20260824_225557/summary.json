@@ -1,0 +1,47 @@
+﻿{
+    "timestamp":  "2026-08-24T22:57:28.7460812+09:00",
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "13.3",
+                   "llama_cpp":  "Unknown"
+               },
+    "benchmark":  {
+                      "prompt_tokens":  512,
+                      "generation_tokens":  128,
+                      "runs":  3
+                  },
+    "experiments":  [
+                        {
+                            "name":  "baseline",
+                            "description":  "Baseline: Q4_K_M with maximum GPU offload",
+                            "gpu_layers":  99
+                        }
+                    ],
+    "results":  [
+                    {
+                        "Experiment":  "baseline",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  null,
+                        "Backend":  null,
+                        "GPU_Layers":  null,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    },
+                    {
+                        "Experiment":  "baseline",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  null,
+                        "Backend":  null,
+                        "GPU_Layers":  null,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    }
+                ]
+}

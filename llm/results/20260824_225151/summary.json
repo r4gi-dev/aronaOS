@@ -1,0 +1,59 @@
+﻿{
+    "timestamp":  "2026-08-24T22:53:26.6100589+09:00",
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "13.3",
+                   "llama_cpp":  {
+                                     "version":  "Unknown",
+                                     "commit":  null,
+                                     "number":  null
+                                 }
+               },
+    "benchmark":  {
+                      "prompt_tokens":  512,
+                      "generation_tokens":  128,
+                      "gpu_layers":  99,
+                      "repetitions":  3
+                  },
+    "results":  [
+                    {
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  "CUDA",
+                        "GPU_Layers":  99,
+                        "CacheK":  "f16",
+                        "CacheV":  "f16",
+                        "FlashAttention":  -1,
+                        "Test":  "pp512",
+                        "PromptTokens":  512,
+                        "GenerationTokens":  0,
+                        "TokensPerSec":  153.32,
+                        "StdDev":  0.46,
+                        "BatchSize":  2048,
+                        "UBatchSize":  512,
+                        "Repetitions":  3
+                    },
+                    {
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  "CUDA",
+                        "GPU_Layers":  99,
+                        "CacheK":  "f16",
+                        "CacheV":  "f16",
+                        "FlashAttention":  -1,
+                        "Test":  "tg128",
+                        "PromptTokens":  0,
+                        "GenerationTokens":  128,
+                        "TokensPerSec":  7.42,
+                        "StdDev":  0.03,
+                        "BatchSize":  2048,
+                        "UBatchSize":  512,
+                        "Repetitions":  3
+                    }
+                ]
+}

@@ -1,0 +1,55 @@
+﻿{
+    "timestamp":  "2026-08-25T08:50:14.4223506+09:00",
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "13.3",
+                   "llama_cpp":  "Unknown"
+               },
+    "benchmark":  {
+                      "llama_bench":  "C:\\dev\\llm\\llama.cpp\\build\\bin\\llama-bench.exe",
+                      "config_file":  "C:\\dev\\llm\\benchmark\\config\\benchmark.json"
+                  },
+    "statistics":  {
+                       "experiments_total":  1,
+                       "experiments_completed":  1,
+                       "experiments_failed":  0,
+                       "result_rows":  2
+                   },
+    "results":  [
+                    {
+                        "Timestamp":  "2026-08-25T08:50:14.3554799+09:00",
+                        "Experiment":  "baseline",
+                        "Description":  "Q4_K_M with maximum GPU offload",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  null,
+                        "GPU_Layers":  99,
+                        "PromptTokens":  512,
+                        "GenerationTokens":  128,
+                        "Runs":  3,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    },
+                    {
+                        "Timestamp":  "2026-08-25T08:50:14.3616028+09:00",
+                        "Experiment":  "baseline",
+                        "Description":  "Q4_K_M with maximum GPU offload",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  null,
+                        "GPU_Layers":  99,
+                        "PromptTokens":  512,
+                        "GenerationTokens":  128,
+                        "Runs":  3,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    }
+                ]
+}

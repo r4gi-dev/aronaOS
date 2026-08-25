@@ -1,0 +1,3 @@
+﻿"Experiment","Model","ModelSizeGB","ParametersB","Backend","GPU_Layers","CPU_MoE","PromptTokens","GenerationTokens","Test","TokensPerSec","StdDev","AvgTimeMs","QuantK","QuantV","FlashAttention","Build"
+"baseline","Qwen3-30B-A3B-Q4_K_M","17.28","30.53","CUDA","99","0","512","0","pp512","153.05","1.91","3345.56","f16","f16","-1","10612"
+"baseline","Qwen3-30B-A3B-Q4_K_M","17.28","30.53","CUDA","99","0","0","128","tg128","7.34","0.02","17427.14","f16","f16","-1","10612"

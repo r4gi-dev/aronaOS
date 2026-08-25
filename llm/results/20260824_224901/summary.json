@@ -1,0 +1,31 @@
+﻿{
+    "timestamp":  "2026-08-24T22:50:42.6994002+09:00",
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "Cuda compilation tools, release 13.3, V13.3.73",
+                   "llama_cpp":  "Unknown"
+               },
+    "results":  [
+                    {
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "Backend":  null,
+                        "GPU_Layers":  null,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    },
+                    {
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "Backend":  null,
+                        "GPU_Layers":  null,
+                        "Test":  null,
+                        "TokensPerSec":  null,
+                        "StdDev":  null
+                    }
+                ]
+}

@@ -1,0 +1,70 @@
+﻿{
+    "timestamp":  "2026-08-24T23:01:38.3414732+09:00",
+    "benchmark_version":  "1.0",
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "13.3",
+                   "llama_cpp":  "usage: C:\\dev\\llm\\llama.cpp\\build\\bin\\llama-bench.exe [options]\r\n\r\noptions:\r\n  -h, --help\r\n  --numa \u003cdistribute|isolate|numactl\u003e         numa mode (default: disabled)\r\n  -r, --repetitions \u003cn\u003e                       number of times to repeat each test (default: 5)\r\n  --prio \u003c-1|0|1|2|3\u003e                         process/thread priority (default: 0)\r\n  --delay \u003c0...N\u003e (seconds)                   delay between each test (default: 0)\r\n  -o, --output \u003ccsv|json|jsonl|md|sql\u003e        output format printed to stdout (default: md)\r\n  -oe, --output-err \u003ccsv|json|jsonl|md|sql\u003e   output format printed to stderr (default: none)\r\n  --list-devices                              list available devices and exit\r\n  -v, --verbose                               verbose output\r\n  --progress                                  print test progress indicators\r\n  --no-warmup                                 skip warmup runs before benchmarking\r\n  -fitt, --fit-target \u003cMiB\u003e                   fit model to device memory with this margin per device in MiB (default: off)\r\n  -fitc, --fit-ctx \u003cn\u003e                        minimum ctx size for --fit-target (default: 4096)\r\n\r\ntest parameters:\r\n  -m, --model \u003cfilename\u003e                            (default: models/7B/ggml-model-q4_0.gguf)\r\n  -hf, -hfr, --hf-repo \u003cuser\u003e/\u003cmodel\u003e[:quant]       Hugging Face model repository; quant is optional, case-insensitive\r\n                                                    default to Q4_K_M, or falls back to the first file in the repo if Q4_K_M doesn\u0027t exist.\r\n                                                    example: ggml-org/GLM-4.7-Flash-GGUF:Q4_K_M\r\n                                                    (default: unused)\r\n  -hff, --hf-file \u003cfile\u003e                            Hugging Face model file. If specified, it will override the quant in --hf-repo\r\n                                                    (default: unused)\r\n  -hft, --hf-token \u003ctoken\u003e                          Hugging Face access token\r\n                                                    (default: value from HF_TOKEN environment variable)\r\n  --offline                                         Offline mode: forces use of cache, prevents network access\r\n                                                    (default: disabled)\r\n  -p, --n-prompt \u003cn\u003e                                (default: 512)\r\n  -n, --n-gen \u003cn\u003e                                   (default: 128)\r\n  -pg \u003cpp,tg\u003e                                       (default: )\r\n  -d, --n-depth \u003cn\u003e                                 (default: 0)\r\n  -b, --batch-size \u003cn\u003e                              (default: 2048)\r\n  -ub, --ubatch-size \u003cn\u003e                            (default: 512)\r\n  -ctk, --cache-type-k \u003ct\u003e                          (default: f16)\r\n  -ctv, --cache-type-v \u003ct\u003e                          (default: f16)\r\n  -t, --threads \u003cn\u003e                                 (default: 16)\r\n  -C, --cpu-mask \u003chex,hex\u003e                          (default: 0x0)\r\n  --cpu-strict \u003c0|1\u003e                                (default: 0)\r\n  --poll \u003c0...100\u003e                                  (default: 50)\r\n  -ngl, --n-gpu-layers \u003cn\u003e                          (default: -1)\r\n  -ncmoe, --n-cpu-moe \u003cn\u003e                           (default: 0)\r\n  -sm, --split-mode \u003cnone|layer|row|tensor\u003e         (default: layer)\r\n  -mg, --main-gpu \u003ci\u003e                               (default: 0)\r\n  -nkvo, --no-kv-offload \u003c0|1\u003e                      (default: 0)\r\n  -fa, --flash-attn \u003con|off|auto\u003e                   (default: auto)\r\n  -dev, --device \u003cdev0/dev1/...\u003e                    (default: auto)\r\n  -lm, --load-mode \u003cauto|none|mmap|mlock|mmap+mlock|dio\u003e (default: auto)\r\n  -mmp, --mmap \u003c0|1\u003e                                (DEPRECATED IN FAVOUR OF --load-mode)\r\n  -dio, --direct-io \u003c0|1\u003e                           (DEPRECATED IN FAVOUR OF --load-mode)\r\n  -embd, --embeddings \u003c0|1\u003e                         (default: 0)\r\n  -ts, --tensor-split \u003cts0/ts1/..\u003e                  (default: 0)\r\n  -ot --override-tensor \u003ctensor name pattern\u003e=\u003cbuffer type\u003e;...\r\n                                                    (default: disabled)\r\n  -nopo, --no-op-offload \u003c0|1\u003e                      (default: 0)\r\n  --no-host \u003c0|1\u003e                                   (default: 0)\r\n\r\nMultiple values can be given for each parameter by separating them with \u0027,\u0027\r\nor by specifying the parameter multiple times. Ranges can be given as\r\n\u0027first-last\u0027 or \u0027first-last+step\u0027 or \u0027first-last*mult\u0027."
+               },
+    "experiments":  [
+                        {
+                            "name":  "baseline",
+                            "description":  "Q4_K_M with maximum GPU offload",
+                            "gpu_layers":  [
+                                               99
+                                           ],
+                            "bench":  {
+                                          "prompt_tokens":  [
+                                                                512
+                                                            ],
+                                          "generation_tokens":  [
+                                                                    128
+                                                                ],
+                                          "runs":  3
+                                      }
+                        }
+                    ],
+    "results":  [
+                    {
+                        "Experiment":  "baseline",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  "CUDA",
+                        "GPU_Layers":  99,
+                        "CPU_MoE":  0,
+                        "PromptTokens":  512,
+                        "GenerationTokens":  0,
+                        "Test":  "pp512",
+                        "TokensPerSec":  153.05,
+                        "StdDev":  1.91,
+                        "AvgTimeMs":  3345.56,
+                        "QuantK":  "f16",
+                        "QuantV":  "f16",
+                        "FlashAttention":  -1,
+                        "Build":  10612
+                    },
+                    {
+                        "Experiment":  "baseline",
+                        "Model":  "Qwen3-30B-A3B-Q4_K_M",
+                        "ModelSizeGB":  17.28,
+                        "ParametersB":  30.53,
+                        "Backend":  "CUDA",
+                        "GPU_Layers":  99,
+                        "CPU_MoE":  0,
+                        "PromptTokens":  0,
+                        "GenerationTokens":  128,
+                        "Test":  "tg128",
+                        "TokensPerSec":  7.34,
+                        "StdDev":  0.02,
+                        "AvgTimeMs":  17427.14,
+                        "QuantK":  "f16",
+                        "QuantV":  "f16",
+                        "FlashAttention":  -1,
+                        "Build":  10612
+                    }
+                ]
+}

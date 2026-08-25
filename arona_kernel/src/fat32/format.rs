@@ -24,12 +24,25 @@ pub fn cluster_to_sector(cluster: u32) -> u32 {
     DATA_START_SECTOR + (cluster - 2) * SECTORS_PER_CLUSTER as u32
 }
 
-fn bytes_to_words(bytes: &[u8; 512]) -> [u16; 256] {
+/// 512バイトのバイト列を、ATAドライバが扱う256ワード(16bit)配列に変換する。
+/// `dir.rs`のディレクトリエントリ・FAT操作でも同じ変換が必要なため、
+/// `pub(crate)`にしてクレート内で共有する。
+pub(crate) fn bytes_to_words(bytes: &[u8; 512]) -> [u16; 256] {
     let mut words = [0u16; 256];
     for i in 0..256 {
         words[i] = (bytes[i * 2] as u16) | ((bytes[i * 2 + 1] as u16) << 8);
     }
     words
+}
+
+/// `bytes_to_words`の逆変換。
+pub(crate) fn words_to_bytes(words: &[u16; 256]) -> [u8; 512] {
+    let mut bytes = [0u8; 512];
+    for i in 0..256 {
+        bytes[i * 2] = (words[i] & 0xFF) as u8;
+        bytes[i * 2 + 1] = (words[i] >> 8) as u8;
+    }
+    bytes
 }
 
 fn write_boot_sector() -> Result<(), &'static str> {

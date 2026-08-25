@@ -1,0 +1,40 @@
+﻿{
+    "timestamp":  "2026-08-25T08:46:05.8591060+09:00",
+    "benchmark":  {
+                      "name":  "Local LLM Lightweight Benchmark",
+                      "result_directory":  "C:\\dev\\llm\\results\\20260825_084604"
+                  },
+    "system":  {
+                   "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+                   "vram_gb":  8,
+                   "ram_gb":  31.72,
+                   "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+                   "cuda":  "13.3",
+                   "llama_cpp":  {
+                                     "version":  "Unknown",
+                                     "build":  null,
+                                     "commit":  null
+                                 }
+               },
+    "experiments":  [
+                        {
+                            "name":  "baseline",
+                            "description":  "Q4_K_M with maximum GPU offload",
+                            "gpu_layers":  [
+                                               99
+                                           ],
+                            "bench":  {
+                                          "prompt_tokens":  [
+                                                                512
+                                                            ],
+                                          "generation_tokens":  [
+                                                                    128
+                                                                ],
+                                          "runs":  3
+                                      }
+                        }
+                    ],
+    "results":  [
+
+                ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "gpu":  "NVIDIA GeForce RTX 4060 Ti",
+    "vram_gb":  8,
+    "ram_gb":  31.72,
+    "cpu":  "13th Gen Intel(R) Core(TM) i7-13700F",
+    "cuda":  "13.3",
+    "llama_cpp":  "Unknown"
+}
